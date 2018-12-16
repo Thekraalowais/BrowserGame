@@ -37,4 +37,25 @@ class Player {
     fill(this.color);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
+
+  hit(box) {
+    // console.log(this.x, this.y);
+    // console.log(box);
+    let boxX = box.x;
+    let boxY = box.y;
+    let playerX = this.x;
+    let playerY = this.y;
+    let boxH = box.h;
+    let playerR = this.r;
+
+    // if (boxY - playerY < boxH / 2 + playerR / 2) {
+    //   console.log(
+    //     "playery" + playerY + "boxy: " + boxY + "boxH" + boxH + "r:" + playerR
+    //   );
+    // }
+
+    if (dist(boxX, boxY, playerX, playerY < boxH / 2 + playerR / 2)) {
+      console.log("Hit");
+    }
+  }
 }

@@ -1,5 +1,5 @@
 let blob;
-
+let box;
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   blob = new Player(
@@ -9,6 +9,7 @@ function setup() {
     40,
     "red"
   );
+  box = new Box(500, 60, 120, 40, "red");
 }
 
 function draw() {
@@ -20,4 +21,7 @@ function draw() {
   //   translate(mouseX, mouseY);
   blob.show();
   blob.update();
+  blob.hit(box);
+  box.show();
+  box.move();
 }
