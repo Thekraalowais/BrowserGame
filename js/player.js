@@ -1,6 +1,6 @@
 let lastX = 0;
 let lastY = 0;
-
+let score = 0;
 class Player {
   constructor(name, x, y, r, color) {
     this.name = name;
@@ -34,6 +34,7 @@ class Player {
     // }
   }
   show() {
+
     fill(this.color);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
@@ -44,10 +45,35 @@ class Player {
     let boxX = box.x;
     let boxY = box.y;
     let boxH = box.h;
+    let boxW = box.w;
     let playerX = this.x;
     let playerY = this.y;
     let playerR = this.r;
-
+    let boxColor = box.color;
+    let playerColor = this.color;
+    if (
+      playerX > boxX &&
+      playerX < boxX + boxW &&
+      playerY > boxY &&
+      playerY < boxY + boxH &&
+      box.hasBeenHit === false &&
+      boxColor === this.color
+    ) {
+      box.hasBeenHit = true;
+      score += 1;
+      console.log("win...score : " + score);
+    }
+    else if (playerX > boxX &&
+      playerX < boxX + boxW &&
+      playerY > boxY &&
+      playerY < boxY + boxH &&
+      box.hasBeenHit === false &&
+      boxColor != this.color
+    ) {
+      box.hasBeenHit = true;
+     
+      console.log("lose...score : " + score);}
+    //console.log(boxColor + "me" + playerColor);
     // console.log(
     //   "playery " +
     //     playerY +
@@ -59,9 +85,12 @@ class Player {
     //     playerR
     // );
     let d = dist(boxX, boxY, playerX, playerY);
+
     // console.log(d);
-    if (d < boxH / 2 + playerR / 2) {
-      console.log("Hit");
+    if (d < boxH + playerR && boxColor === this.color) {
+      //remove(box);
+    } else if (d < boxH + playerR && boxColor != this.color) {
+      // console.log("lose");
     }
   }
 }

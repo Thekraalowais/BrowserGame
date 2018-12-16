@@ -2,11 +2,12 @@
 // let lastY = 0;
 
 class Box {
-  constructor(x, y, h, w, color) {
+  constructor(x, y, w, h, color) {
     this.x = x;
     this.y = y;
-    this.h = h;
-    this.w = w;
+    this.h = h; // 120
+    this.w = w; // 40
+    this.hasBeenHit = false;
     this.color = color;
     // this.pos = createVector(x, y);
     // console.log(this.pos);
@@ -25,7 +26,13 @@ class Box {
   }
 
   show() {
-    fill(this.color);
-    rect(this.x, this.y, this.h, this.w);
+    if (this.hasBeenHit === false) {
+      fill(this.color);
+
+      rect(this.x, this.y, this.w, this.h);
+    }
+    if (this.y > window.innerHeight) {
+      this.hasBeenHit = true;
+    }
   }
 }
