@@ -43,18 +43,24 @@ class Player {
     // console.log(box);
     let boxX = box.x;
     let boxY = box.y;
+    let boxH = box.h;
     let playerX = this.x;
     let playerY = this.y;
-    let boxH = box.h;
     let playerR = this.r;
 
-    // if (boxY - playerY < boxH / 2 + playerR / 2) {
-    //   console.log(
-    //     "playery" + playerY + "boxy: " + boxY + "boxH" + boxH + "r:" + playerR
-    //   );
-    // }
-
-    if (dist(boxX, boxY, playerX, playerY < boxH / 2 + playerR / 2)) {
+    // console.log(
+    //   "playery " +
+    //     playerY +
+    //     "boxy: " +
+    //     boxY +
+    //     "boxH " +
+    //     boxH +
+    //     "playerr: " +
+    //     playerR
+    // );
+    let d = dist(boxX, boxY, playerX, playerY);
+    // console.log(d);
+    if (d < boxH / 2 + playerR / 2) {
       console.log("Hit");
     }
   }
