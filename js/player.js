@@ -2,12 +2,13 @@ let lastX = 0;
 let lastY = 0;
 let score = 0;
 class Player {
-  constructor(name, x, y, r, color) {
+  constructor(name, x, y, r, color, id) {
     this.name = name;
     this.x = x;
     this.y = y;
     this.r = r;
     this.color = color;
+    this.id = socket.id;
     // this.pos = createVector(x, y);
     // console.log(this.pos);
     // this.vel = createVector(0, 0);
@@ -35,6 +36,8 @@ class Player {
   show() {
     fill(this.color);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
+    fill(0);
+    text("thekra", this.x, this.y);
   }
 
   hit(box) {
@@ -69,19 +72,6 @@ class Player {
       boxColor != this.color
     ) {
       box.hasBeenHit = true;
-      // swal("Oops", "You lose!", "error");
-
-      swal({
-        icon: "error",
-        
-        // title: "Enter your username",
-        // content: "input"
-      }).then(function(username) {
-        swal({
-          // icon: "success"
-          // html: "Your email: " + email
-        });
-      });
       console.log("lose...score : " + score);
     }
     //console.log(boxColor + "me" + playerColor);
