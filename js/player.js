@@ -8,7 +8,7 @@ class Player {
     this.y = y;
     this.r = r;
     this.color = color;
-    this.id = socket.id;
+    this.id = id;
     // this.pos = createVector(x, y);
     // console.log(this.pos);
     // this.vel = createVector(0, 0);
@@ -95,3 +95,5 @@ class Player {
     }
   }
 }
+
+module.exports = Player;

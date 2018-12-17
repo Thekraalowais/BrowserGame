@@ -3,11 +3,12 @@ let box;
 let boxs = [];
 let boxsNum = 0;
 let again = true;
+let blobs = [];
 
-window.onload = function() {
-  //   console.log("onload");
-  swal("Hi", "choose username!", "error");
-};
+// window.onload = function() {
+//   //   console.log("onload");
+//   swal("Hi", "choose username!", "error");
+// };
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   frameRate(30);
@@ -47,40 +48,62 @@ function setup() {
     );
   }, 3000);
 }
-function createBlob() {
-  blob = new Player(
-    "Amal",
-    random(-width / 2, width / 2),
-    random(-height / 2, height / 2),
-    40,
-    "red",
-    this.id
-  );
-  return blob;
-}
 
+// function createBlob() {
+//   blob = new Player(
+//     "Amal",
+//     random(-width / 2, width / 2),
+//     random(-height / 2, height / 2),
+//     40,
+//     "red",
+//     this.id
+//   );
+//   return blob;
+// }
+var socket = io();
+
+socket.on("playersList", function(data) {
+  //   console.log(data[0].name);
+  blobs.push(
+    new Player(
+      data[0].name,
+      data[0].x,
+      data[0].y,
+      data[0].r,
+      data[0].color,
+      data[0].id
+    )
+  );
+});
+console.log("inner", blobs);
+// console.log("inner", blobs.length);
+
+// console.log(blobs);
 //setInterval(drawBoxes,3000)
 function draw() {
   boxs = boxs.filter(function(box) {
     return box.hasBeenHit === false;
   });
   background(0);
- 
-  blob.show();
-  blob.update();
-  blob.hit(box);
+  for (let i = 0; i < blobs.length; i++) {
+    // console.log("**********");
+    blobs[i].show();
+    blobs[i].update();
+    blobs[i].hit(box);
+    console.log("------- ", blobs);
+    // debugger;
+  }
+  //   blobs[0].show();
   box.show();
   box.move();
 
-  
   for (let i = 0; i < boxs.length; i++) {
     boxs[i].show();
     // console.log("run");
     boxs[i].move();
-    blob.hit(boxs[i]);
+    // blob.hit(boxs[i]);
   } //}
 }
-var socket = io();
 
 //socket.emit('chat message', )
 
@@ -96,9 +119,12 @@ function createBlobFun() {
     "blue",
     this.id
   );
-  return blob
+  return blob;
 }
-socket.emit("playerPosition", { blob });
 
+// socket.emit("player", { blob });
 
-socket.emit("createBlob", { blob });
+// socket.emit("createBlob", { blob });
+// socket.on('playersList', function (playersList)){
+// this.
+// }
