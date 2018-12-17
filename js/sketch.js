@@ -6,13 +6,8 @@ let again = true;
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   frameRate(30);
-  blob = new Player(
-    "thekra",
-    random(-width / 2, width / 2),
-    random(-height / 2, height / 2),
-    40,
-    "blue"
-  );
+  blob = createBlobFun();
+  //console.log(blob);
   // Create an array of colors
   colors = [];
 
@@ -47,6 +42,17 @@ function setup() {
     );
   }, 3000);
 }
+function createBlob() {
+  blob = new Player(
+    "Amal",
+    random(-width / 2, width / 2),
+    random(-height / 2, height / 2),
+    40,
+    "red",
+    this.id
+  );
+  return blob;
+}
 
 //setInterval(drawBoxes,3000)
 function draw() {
@@ -54,25 +60,40 @@ function draw() {
     return box.hasBeenHit === false;
   });
   background(0);
-  //   console.log(blob);
-
-  //   translate(width / 2, height / 2);
-  //   translate(-blob.pos.x, -blob.pos.y);
-  //   translate(mouseX, mouseY);
-  //console.log(blob.x)
+ 
   blob.show();
   blob.update();
   blob.hit(box);
   box.show();
   box.move();
 
-  //generateBoxes();
-  //
-  //while (again){
+  
   for (let i = 0; i < boxs.length; i++) {
     boxs[i].show();
-    console.log("run");
+    // console.log("run");
     boxs[i].move();
     blob.hit(boxs[i]);
   } //}
 }
+var socket = io();
+
+//socket.emit('chat message', )
+
+// socket.on("playerPosition", function(msg) {
+//   console.log(msg);
+// });
+function createBlobFun() {
+  blob = new Player(
+    "thekra",
+    random(-width / 2, width / 2),
+    random(-height / 2, height / 2),
+    40,
+    "blue",
+    this.id
+  );
+  return blob
+}
+socket.emit("playerPosition", { blob });
+
+
+socket.emit("createBlob", { blob });
