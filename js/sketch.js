@@ -15,7 +15,24 @@ function setup() {
   blob = createBlobFun();
   //console.log(blob);
   // Create an array of colors
-  colors = [];
+  colors = [
+    color("#00b33c"),
+    color("#ff751a"),
+    color("#d900ff"),
+    color("#be0000"),
+    color("#9900ff"),
+    color("#4343f3"),
+    color("#3399ff"),
+    color("#ff99ff"),
+    color("#33ff33"),
+    color("#ff0066"),
+    color("#ff9933"),
+    color("#4e01b3"),
+    color("#008a7e"),
+    color("#fffb00"),
+    color("#80002b"),
+    color("#1079aa")
+  ];
 
   box = new Box(500, 60, 80, 40, "blue");
 
@@ -30,7 +47,8 @@ function setup() {
         random(height),
         boxWidth,
         50,
-        color(random(255), random(255), random(255))
+        color(Math.round(random(0, colors.length - 1)))
+        // stroke(colors[int(random(0, colors.length))])
       )
     );
   }
@@ -43,7 +61,8 @@ function setup() {
         0,
         boxWidth,
         50,
-        color(random(255), random(255), random(255))
+        color(Math.round(random(0, colors.length - 1)))
+        // stroke(colors[int(random(0, colors.length))])
       )
     );
   }, 3000);
