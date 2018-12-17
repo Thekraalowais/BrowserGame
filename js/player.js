@@ -8,11 +8,10 @@ class Player {
     this.y = y;
     this.r = r;
     this.color = color;
-    this.pos = createVector(x, y);
+    // this.pos = createVector(x, y);
     // console.log(this.pos);
-    this.vel = createVector(0, 0);
+    // this.vel = createVector(0, 0);
   }
-
   update() {
     this.x = lerp(this.x, mouseX, 0.05);
     this.y = lerp(this.y, mouseY, 0.05);
@@ -34,7 +33,6 @@ class Player {
     // }
   }
   show() {
-
     fill(this.color);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
@@ -62,8 +60,8 @@ class Player {
       box.hasBeenHit = true;
       score += 1;
       console.log("win...score : " + score);
-    }
-    else if (playerX > boxX &&
+    } else if (
+      playerX > boxX &&
       playerX < boxX + boxW &&
       playerY > boxY &&
       playerY < boxY + boxH &&
@@ -71,8 +69,21 @@ class Player {
       boxColor != this.color
     ) {
       box.hasBeenHit = true;
-     
-      console.log("lose...score : " + score);}
+      // swal("Oops", "You lose!", "error");
+
+      swal({
+        icon: "error",
+        
+        // title: "Enter your username",
+        // content: "input"
+      }).then(function(username) {
+        swal({
+          // icon: "success"
+          // html: "Your email: " + email
+        });
+      });
+      console.log("lose...score : " + score);
+    }
     //console.log(boxColor + "me" + playerColor);
     // console.log(
     //   "playery " +

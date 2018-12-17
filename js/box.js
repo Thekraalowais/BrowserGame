@@ -1,6 +1,3 @@
-// let lastX = 0;
-// let lastY = 0;
-
 class Box {
   constructor(x, y, w, h, color) {
     this.x = x;
@@ -28,7 +25,6 @@ class Box {
   show() {
     if (this.hasBeenHit === false) {
       fill(this.color);
-
       rect(this.x, this.y, this.w, this.h);
     }
     if (this.y > window.innerHeight) {

@@ -3,6 +3,11 @@ let box;
 let boxs = [];
 let boxsNum = 0;
 let again = true;
+
+window.onload = function() {
+  //   console.log("onload");
+  swal("Hi", "choose username!", "error");
+};
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   frameRate(30);
@@ -16,7 +21,7 @@ function setup() {
   // Create an array of colors
   colors = [];
 
-  box = new Box(500, 60, 80, 40, "red");
+  box = new Box(500, 60, 80, 40, "blue");
 
   //drawBoxes();
 
