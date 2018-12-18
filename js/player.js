@@ -14,8 +14,17 @@ class Player {
     // this.vel = createVector(0, 0);
   }
   update() {
-    this.x = lerp(this.x, mouseX, 0.05);
-    this.y = lerp(this.y, mouseY, 0.05);
+    // console.log("sokect : " + socket.id, "id:" + this.id);
+    if (socket.id === this.id) {
+      const newX = lerp(this.x, mouseX, 0.5);
+      const newY = lerp(this.y, mouseY, 0.5);
+
+      if (newX !== this.x && newY !== this.y) {
+        socket.emit("player move", this);
+        this.x = newX;
+        this.y = newY;
+      }
+    }
     // let mouse = createVector(mouseX - width / 2, mouseY - height / 2);
     // mouse.setMag(-1);
     // if (lastX === mouseX && lastY === mouseY) {
@@ -96,4 +105,4 @@ class Player {
   }
 }
 
-module.exports = Player;
+// module.exports = Player;
