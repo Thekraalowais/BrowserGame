@@ -9,37 +9,21 @@ class Player {
     this.r = r;
     this.color = color;
     this.id = id;
-    // this.pos = createVector(x, y);
-    // console.log(this.pos);
-    // this.vel = createVector(0, 0);
   }
   update() {
     // console.log("sokect : " + socket.id, "id:" + this.id);
-    if (socket.id === this.id) {
-      const newX = lerp(this.x, mouseX, 0.5);
-      const newY = lerp(this.y, mouseY, 0.5);
+    // if (socket.id === this.id) {
+    const newX = lerp(this.x, mouseX, 0.8);
+    const newY = lerp(this.y, mouseY, 0.8);
 
-      if (newX !== this.x && newY !== this.y) {
-        socket.emit("player move", this);
-        this.x = newX;
-        this.y = newY;
-      }
+    if (
+      Math.round(newX) !== Math.round(this.x) &&
+      Math.round(newY) !== Math.round(this.y)
+    ) {
+      socket.emit("player move", this);
+      this.x = newX;
+      this.y = newY;
     }
-    // let mouse = createVector(mouseX - width / 2, mouseY - height / 2);
-    // mouse.setMag(-1);
-    // if (lastX === mouseX && lastY === mouseY) {
-    //   mouse.setMag(0);
-    // }
-    // this.vel.lerp(mouse, 1);
-    // console.log(this.vel);
-    // console.log(this.vel);
-    // this.pos.add(this.vel);
-    // console.log(lastX, mouseX);
-    // lastX = mouseX;
-    // lastY = mouseY;
-    // console.log(this.pos.x);
-    // if (this.pos.x < 0) {
-    //   console.log("Off the left edge");
     // }
   }
   show() {
@@ -71,7 +55,7 @@ class Player {
     ) {
       box.hasBeenHit = true;
       score += 1;
-      console.log("win...score : " + score);
+      // console.log("win...score : " + score);
     } else if (
       playerX > boxX &&
       playerX < boxX + boxW &&
@@ -81,19 +65,9 @@ class Player {
       boxColor != this.color
     ) {
       box.hasBeenHit = true;
-      console.log("lose...score : " + score);
+      // console.log("lose...score : " + score);
     }
-    //console.log(boxColor + "me" + playerColor);
-    // console.log(
-    //   "playery " +
-    //     playerY +
-    //     "boxy: " +
-    //     boxY +
-    //     "boxH " +
-    //     boxH +
-    //     "playerr: " +
-    //     playerR
-    // );
+
     let d = dist(boxX, boxY, playerX, playerY);
 
     // console.log(d);

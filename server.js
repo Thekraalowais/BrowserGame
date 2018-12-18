@@ -8,12 +8,18 @@ app.use(express.static(__dirname + "/js"));
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });
-
+// let players = [];
 io.on("connection", function(socket) {
+  // players.push(socket.id);
+
   io.emit("join event", socket.id);
+  // io.emit("join event", socket.id);
+  // socket.on("playerslist", function(arr) {
+  //   console.log(arr);
+  // });
   // console.log("Someone joined", socket.id);
   socket.on("player move", function(msg) {
-    // console.log("someone clicked");
+    console.log("someone", msg);
     io.emit("player move", msg);
   });
   socket.on("disconnect", function() {

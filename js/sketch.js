@@ -5,6 +5,7 @@ let boxs = [];
 let boxsNum = 0;
 let again = true;
 let blobs = [];
+let me = null;
 
 // window.onload = function() {
 //   //   console.log("onload");
@@ -13,7 +14,6 @@ let blobs = [];
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   frameRate(30);
-  //   blob = createBlob();
 
   // Create an array of colors
   colors = [
@@ -69,21 +69,12 @@ function setup() {
 
 let players = [];
 
-// function createBlob() {
-//   blob = new Player(
-//     "Amal",
-//     random(-width / 2, width / 2),
-//     random(-height / 2, height / 2),
-//     40,
-//     "red",
-//     socket.id
-//   );
-//   return blob;
-// }
-
 socket.on("join event", function(id) {
-  players.push(new Player("thekra", 40, 40, 40, "red", id));
-  console.log("Joining", id, players);
+  if (!me) {
+    me = new Player("thekra", 40, 40, 40, prompt("Color"), id);
+  }
+  //   socket.emit("playerslist", players);
+  //   console.log("Joining", players);
 });
 
 socket.on("leave event", function(id) {
@@ -98,23 +89,34 @@ socket.on("leave event", function(id) {
 // });
 
 socket.on("player move", function(player) {
-  //   console.log(" plsyer : " + player);
+  //   console.log(player);
+  let foundPlayer = false;
+  for (let i = 0; i < players.length; i += 1) {
+    const p = players[i];
+    if (p.id === player.id) {
+      foundPlayer = true;
+      players[i].x = player.x;
+      players[i].y = player.y;
+    }
+  }
+  if (foundPlayer === false && player.id !== socket.id) {
+    players.push(player);
+  }
+  //   console.log(" player : " + player.id, players);
   //   player1 = players.filter(function(p) {
   //     return p.id == player.id;
   //   });
-  let player1 = "";
-  for (var i = 0; i < players.length; i++) {
-    if (players[i].id !== player.id) {
-      return player;
-    }
-    // console.log("PLAYER:" + player);
-  }
+  //   for (var i = 0; i < players.length; i++) {
+  //     // if (players[i].id !== player.id) {
+  //     console.log("PLAYER:" + player.id);
+  //     //   console.log(player[i]);
+  //     // }
+  //   }
   // Every time someone moves
   // Find the player in players with the ID of the player that moves
   // If you found a player with that ID
   //   Update their x, y, color, radius and name
   //   Draw them to the page
-
   //   fill(player[0].color);
   //   ellipse(player[0].x, player[0].y, player[0].r * 2, player[0].r * 2);
   //   fill(0);
@@ -140,23 +142,25 @@ socket.on("player move", function(player) {
 // console.log("inner", blobs);
 // console.log("inner", blobs.length);
 
-// console.log(blobs);
 function draw() {
-  boxs = boxs.filter(function(box) {
-    return box.hasBeenHit === false;
-  });
+  //   boxs = boxs.filter(function(box) {
+  //     return box.hasBeenHit === false;
+  //   });
   background(0);
-  //   blob.show();
-  //   blob.update();
-  for (let i = 0; i < players.length; i++) {
-    console.log("**********", players);
-    players[i].show();
-    players[i].update();
-    players[i].hit(box);
-    // console.log("------- ", blobs);
-    // debugger;
+
+  if (me) {
+    me.show();
+    me.update();
   }
-  //   blobs[0].show();
+
+  for (let i = 0; i < players.length; i++) {
+    const player = players[i];
+    fill(player.color);
+    ellipse(player.x, player.y, player.r * 2, player.r * 2);
+    fill(0);
+    text("thekra", player.x, player.y);
+  }
+
   box.show();
   box.move();
 
@@ -167,27 +171,3 @@ function draw() {
     // blob.hit(boxs[i]);
   } //}
 }
-
-//socket.emit('chat message', )
-
-// socket.on("playerPosition", function(msg) {
-//   console.log(msg);
-// });
-// function createBlobFun() {
-//   blob = new Player(
-//     "thekra",
-//     random(-width / 2, width / 2),
-//     random(-height / 2, height / 2),
-//     40,
-//     "blue",
-//     this.id
-//   );
-//   return blob;
-// }
-
-// socket.emit("player", { blob });
-
-// socket.emit("createBlob", { blob });
-// socket.on('playersList', function (playersList)){
-// this.
-// }
