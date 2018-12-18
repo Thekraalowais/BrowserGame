@@ -12,8 +12,8 @@ let blobs = [];
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   frameRate(30);
-  blob = createBlobFun();
-  //console.log(blob);
+  //   blob = createBlobFun();
+
   // Create an array of colors
   colors = [
     color("#00b33c"),
@@ -35,8 +35,6 @@ function setup() {
   ];
 
   box = new Box(500, 60, 80, 40, "blue");
-
-  //drawBoxes();
 
   for (let i = 0; i < random(1, 3); i++) {
     const boxWidth = lerp(80, 100, Math.random());
@@ -82,23 +80,25 @@ function setup() {
 var socket = io();
 
 socket.on("playersList", function(data) {
-  //   console.log(data[0].name);
-  blobs.push(
-    new Player(
-      data[0].name,
-      data[0].x,
-      data[0].y,
-      data[0].r,
-      data[0].color,
-      data[0].id
-    )
-  );
+  //   console.log(data.length);
+
+  for (var i = 0; i < data.length; i++) {
+    blobs.push(
+      new Player(
+        data[i].name,
+        data[i].x,
+        data[i].y,
+        data[i].r,
+        data[i].color,
+        data[i].id
+      )
+    );
+  }
 });
 console.log("inner", blobs);
 // console.log("inner", blobs.length);
 
 // console.log(blobs);
-//setInterval(drawBoxes,3000)
 function draw() {
   boxs = boxs.filter(function(box) {
     return box.hasBeenHit === false;
@@ -109,7 +109,7 @@ function draw() {
     blobs[i].show();
     blobs[i].update();
     blobs[i].hit(box);
-    console.log("------- ", blobs);
+    // console.log("------- ", blobs);
     // debugger;
   }
   //   blobs[0].show();
@@ -129,17 +129,17 @@ function draw() {
 // socket.on("playerPosition", function(msg) {
 //   console.log(msg);
 // });
-function createBlobFun() {
-  blob = new Player(
-    "thekra",
-    random(-width / 2, width / 2),
-    random(-height / 2, height / 2),
-    40,
-    "blue",
-    this.id
-  );
-  return blob;
-}
+// function createBlobFun() {
+//   blob = new Player(
+//     "thekra",
+//     random(-width / 2, width / 2),
+//     random(-height / 2, height / 2),
+//     40,
+//     "blue",
+//     this.id
+//   );
+//   return blob;
+// }
 
 // socket.emit("player", { blob });
 

@@ -37,10 +37,10 @@ io.on("connection", function(socket) {
   playersList.push(blob);
   // });
   console.log(playersList);
+  // inform client
   socket.emit("playersList", playersList);
 });
 
-// inform client
 
 http.listen(3000, function() {
   console.log("listening on *:3000");
