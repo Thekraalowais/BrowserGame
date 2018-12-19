@@ -1,14 +1,20 @@
 var socket = io();
 let blob;
 let box;
+let multiColoredBox;
 let boxs = [];
-let toros = [];
+let fastBoxes = [];
 
 let boxsNum = 0;
 let again = true;
 let blobs = [];
 let me = null;
+var mu;
 
+function preload() {
+  // load images
+  mu = loadImage("multi-colored.jpg");
+}
 // window.onload = function() {
 //   //   console.log("onload");
 //   swal("Hi", "choose username!", "error");
@@ -18,45 +24,34 @@ function setup() {
   frameRate(30);
 
   // Create an array of colors
-  colors = [
-    "blue",
-    "green",
-    "yellow"
-    // "gray",
-    // "orange",
-    // "pink",
-    // "red",
-    // "maroon",
-    // "purple",
-    // "lavender",
-    // "brown",
-    // "crimson",
-    // "hotpink",
-    // "salmon",
-    // "gold",
-    // "orchid"
-  ];
+  colors = ["blue", "green", "yellow"];
+  // "gray",
+  // "orange",
+  // "pink",
+  // "red",
+  // "maroon",
+  // "purple",
+  // "lavender",
+  // "brown",
+  // "crimson",
+  // "hotpink",
+  // "salmon",
+  // "gold",
+  // "orchid"
 
-  // box = new Box(500, 60, 80, 40, "blue");
-
+  //code to generate normal boxes
   for (let i = 0; i < random(1, 3); i++) {
     const boxWidth = lerp(80, 100, Math.random());
     // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
     boxs.push(
       new Box(
-        random(width - boxWidth), // x
+        random(width - boxWidth),
         random(height),
         boxWidth,
         50,
         colors[Math.round(random(0, colors.length - 1))]
-        // stroke(colors[int(random(0, colors.length))])
       )
-    );
-  }
-  for (let i = 0; i < random(4, 20); i++) {
-    const boxWidth = lerp(10, 30, Math.random());
-    // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
-    toros.push(new Box(random(width - boxWidth), random(height), boxWidth, 50, colors[Math.round(random(0, colors.length - 1))])); // x
+    ); // x
     // stroke(colors[int(random(0, colors.length))])
   }
   setInterval(function() {
@@ -64,16 +59,54 @@ function setup() {
     // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
     boxs.push(
       new Box(
-        random(width - boxWidth), // x
+        random(width - boxWidth),
         0,
         boxWidth,
         50,
         colors[Math.round(random(0, colors.length - 1))]
-        // stroke(colors[int(random(0, colors.length))])
       )
-    );
+    ); // x
+    // stroke(colors[int(random(0, colors.length))])
   }, 3000);
+  //code to generate fast boxes
+  for (let i = 0; i < random(15, 40); i++) {
+    const boxWidth = lerp(20, 30, Math.random());
+    // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
+    fastBoxes.push(
+      new Box(
+        random(width - boxWidth),
+        random(height),
+        boxWidth,
+        30,
+        colors[Math.round(random(0, colors.length - 1))]
+      )
+    ); // x
+    // stroke(colors[int(random(0, colors.length))])
+  }
+
+  //fast mode
+  setInterval(function() {
+    fill("red");
+    text("here comes the fast mode", width / 2, height / 2);
+    for (let i = 0; i < random(15, 40); i++) {
+      const boxWidth = lerp(20, 30, Math.random());
+      fastBoxes.push(
+        new Box(
+          random(width - boxWidth),
+          random(height),
+          boxWidth,
+          30,
+          colors[Math.round(random(0, colors.length - 1))]
+        )
+      );
+    }
+  }, 10000);
 }
+
+  //code to generate multi color boxes
+  
+
+multiColoredBox = new ColoredBox(random(width), random(height), 40, 40, mu); // x
 
 let players = [];
 
@@ -155,7 +188,7 @@ function draw() {
     return box.hasBeenHit === false;
   });
 
-  toros = toros.filter(function(box) {
+  fastBoxes = fastBoxes.filter(function(box) {
     return box.hasBeenHit === false;
   });
   background(0);
@@ -181,15 +214,29 @@ function draw() {
     boxs[i].show();
     // console.log("run");
     boxs[i].move();
-    me.hit(boxs[i]);
+    if (me) {
+      me.hit(boxs[i]);
+    }
   } //}
-  for (let i = 0; i < toros.length; i++) {
-    toros[i].show();
-    // console.log("run");
-    toros[i].moveFast();
-    me.hit(toros[i]);
-    // blob.hit(boxs[i]);
-  } //}
+  //boxes mode fast
+  for (let i = 0; i < fastBoxes.length; i++) {
+    fastBoxes[i].show();
+    fastBoxes[i].moveFast();
+    if (me) {
+      me.hit(fastBoxes[i]);
+    }
+  }
+  // for (let i = 0; i < multiColoredBox.length; i++) {
+  //   multiColoredBox[i].show();
+  //   multiColoredBox[i].moveFast();
+  //   if (me) {
+  //     me.collectMulti(multiColoredBox[i]);
+  //   }
+
+  // }
+  multiColoredBox.show();
+  multiColoredBox.appeare();
+
+  //multiColoredBox.show()
+  me.collectMulti(multiColoredBox);
 }
-
-

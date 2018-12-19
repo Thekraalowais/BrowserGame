@@ -24,11 +24,12 @@ class Box {
   moveFast() {
     this.x = this.x + random(-1, 2);
     // Moving up at a constant speed
-    this.y = this.y + 10;
+    this.y = this.y + 8;
   }
   show() {
     if (this.hasBeenHit === false) {
       fill(this.color);
+       noStroke();
       rect(this.x, this.y, this.w, this.h);
     }
     if (this.y > window.innerHeight) {

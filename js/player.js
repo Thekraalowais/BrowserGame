@@ -91,6 +91,30 @@ class Player {
     //   console.log("lose");
     // }
   }
+
+  collectMulti(multi) {
+    let multiX = multi.x;
+    let multiY = multi.y;
+    let multiH = multi.h;
+    let multiW = multi.w;
+    let playerX = this.x;
+    let playerY = this.y;
+    let playerR = this.r;
+    let multiColor = multi.color;
+    let playerColor = this.color;
+    if (
+      playerX > multiX &&
+      playerX < multiX + multiW &&
+      playerY > multiY &&
+      playerY < multiY + multiH &&
+      multi.hasBeenHit === false
+      //multiColor === this.color
+    ) {
+      multi.hasBeenHit = true;
+      this.score += 1;
+      console.log("win...score : " + this.score);
+    }
+  }
 }
 
 // module.exports = Player;
