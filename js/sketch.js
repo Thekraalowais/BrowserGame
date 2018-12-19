@@ -6,15 +6,21 @@ let boxsNum = 0;
 let again = true;
 let blobs = [];
 let me = null;
+let song;
 
-// window.onload = function() {
-//   //   console.log("onload");
-//   swal("Hi", "choose username!", "error");
-// };
+// function preload() {
+//   song = loadSound("start.mp3");
+// }
 function setup() {
+  song = createAudio("start.mp3");
+  //   song.autoplay(true);
+  //   song = createAudio("start.mp3");
+  //   song.autoplay(true);
   createCanvas(window.innerWidth, window.innerHeight);
-  frameRate(30);
+  // console.log(song);
+  //   song.play();
 
+  frameRate(30);
   // Create an array of colors
   colors = [
     "blue",
@@ -66,20 +72,19 @@ function setup() {
     );
   }, 3000);
 }
-
+function mouseClicked() {
+  //here we test if the mouse is over the
+  //canvas element when it's clicked
+  if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+    //Show our p5.MediaElement's src field
+    alert(song.src);
+  }
+}
 let players = [];
 
 socket.on("join event", function(id) {
   if (!me) {
-    me = new Player(
-      prompt("Name"),
-      40,
-      40,
-      40,
-      prompt("Color"),
-      id,
-      this.score
-    ); ////////////////////////////////////////////////////////////////
+    me = new Player("thekra", 40, 40, 40, "red", id, 0);
   }
   //   console.log("Joining", players);
 });
@@ -101,6 +106,7 @@ socket.on("player move", function(player) {
       foundPlayer = true;
       players[i].x = player.x;
       players[i].y = player.y;
+      players[i].score = player.score;
     }
   }
   if (foundPlayer === false && player.id !== socket.id) {
@@ -134,8 +140,8 @@ function draw() {
     fill(player.color);
     ellipse(player.x, player.y, player.r * 2, player.r * 2);
     fill(0);
-    text(player.name, player.x, player.y);
-    // text(player.score, player.x, player.y + 1);
+    text(player.name, player.x - 13, player.y);
+    text(player.score, player.x - 3, player.y + 20);
   }
 
   // box.show();
