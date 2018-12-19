@@ -17,25 +17,25 @@ function setup() {
 
   // Create an array of colors
   colors = [
-    color("#00b33c"),
-    color("#ff751a"),
-    color("#d900ff"),
-    color("#be0000"),
-    color("#9900ff"),
-    color("#4343f3"),
-    color("#3399ff"),
-    color("#ff99ff"),
-    color("#33ff33"),
-    color("#ff0066"),
-    color("#ff9933"),
-    color("#4e01b3"),
-    color("#008a7e"),
-    color("#fffb00"),
-    color("#80002b"),
-    color("#1079aa")
+    "blue",
+    "green",
+    "yellow"
+    // "gray",
+    // "orange",
+    // "pink",
+    // "red",
+    // "maroon",
+    // "purple",
+    // "lavender",
+    // "brown",
+    // "crimson",
+    // "hotpink",
+    // "salmon",
+    // "gold",
+    // "orchid"
   ];
 
-  box = new Box(500, 60, 80, 40, "blue");
+  // box = new Box(500, 60, 80, 40, "blue");
 
   for (let i = 0; i < random(1, 3); i++) {
     const boxWidth = lerp(80, 100, Math.random());
@@ -71,7 +71,15 @@ let players = [];
 
 socket.on("join event", function(id) {
   if (!me) {
-    me = new Player(prompt("Name"), 40, 40, 40, prompt("Color"), id);
+    me = new Player(
+      prompt("Name"),
+      40,
+      40,
+      40,
+      prompt("Color"),
+      id,
+      this.score
+    ); ////////////////////////////////////////////////////////////////
   }
   //   console.log("Joining", players);
 });
@@ -127,15 +135,16 @@ function draw() {
     ellipse(player.x, player.y, player.r * 2, player.r * 2);
     fill(0);
     text(player.name, player.x, player.y);
+    text(player.score, player.x, player.y + 1);
   }
 
-  box.show();
-  box.move();
+  // box.show();
+  // box.move();
 
   for (let i = 0; i < boxs.length; i++) {
     boxs[i].show();
     // console.log("run");
     boxs[i].move();
-    // blob.hit(boxs[i]);
+    me.hit(boxs[i]);
   } //}
 }
