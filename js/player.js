@@ -1,6 +1,6 @@
 let lastX = 0;
 let lastY = 0;
-let score = 0;
+// let score = 0;
 class Player {
   constructor(name, x, y, r, color, id) {
     this.name = name;
@@ -9,6 +9,7 @@ class Player {
     this.r = r;
     this.color = color;
     this.id = id;
+    this.score = 0;
   }
   update() {
     // console.log("sokect : " + socket.id, "id:" + this.id);
@@ -30,7 +31,8 @@ class Player {
     fill(this.color);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
     fill(0);
-    text("thekra", this.x, this.y);
+    text(this.name, this.x, this.y);
+    text(this.score, this.x, this.y);
   }
 
   hit(box) {
@@ -54,8 +56,8 @@ class Player {
       boxColor === this.color
     ) {
       box.hasBeenHit = true;
-      score += 1;
-      // console.log("win...score : " + score);
+      this.score += 1;
+      console.log("win...score : " + this.score);
     } else if (
       playerX > boxX &&
       playerX < boxX + boxW &&
@@ -65,17 +67,29 @@ class Player {
       boxColor != this.color
     ) {
       box.hasBeenHit = true;
-      // console.log("lose...score : " + score);
+      // console.log("lose case ** stop the game : $$ yor score " + score);
+      // alert("LOSE");
+      swal({
+        title: "AWW!",
+        text: "Your score   " + this.score,
+        icon: "warning",
+        closeOnClickOutside: false,
+        button: "play again!"
+      }).then(function() {
+        // Redirect the user
+        window.location.reload();
+        // console.log("The Ok Button was clicked.");
+      });
     }
 
-    let d = dist(boxX, boxY, playerX, playerY);
+    // let d = dist(boxX, boxY, playerX, playerY);
 
     // console.log(d);
-    if (d < boxH + playerR && boxColor === this.color) {
-      //remove(box);
-    } else if (d < boxH + playerR && boxColor != this.color) {
-      // console.log("lose");
-    }
+    // if (d < boxH + playerR && boxColor === this.color) {
+    //   // remove(box);
+    // } else if (d < boxH + playerR && boxColor != this.color) {
+    //   console.log("lose");
+    // }
   }
 }
 
