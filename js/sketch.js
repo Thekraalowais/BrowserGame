@@ -171,3 +171,5 @@ function draw() {
     // blob.hit(boxs[i]);
   } //}
 }
+
+
