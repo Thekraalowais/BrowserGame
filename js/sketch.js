@@ -135,7 +135,7 @@ function draw() {
     ellipse(player.x, player.y, player.r * 2, player.r * 2);
     fill(0);
     text(player.name, player.x, player.y);
-    text(player.score, player.x, player.y + 1);
+    // text(player.score, player.x, player.y + 1);
   }
 
   // box.show();
@@ -145,6 +145,8 @@ function draw() {
     boxs[i].show();
     // console.log("run");
     boxs[i].move();
-    me.hit(boxs[i]);
+    if (me) {
+      me.hit(boxs[i]);
+    }
   } //}
 }

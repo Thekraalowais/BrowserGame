@@ -32,7 +32,7 @@ class Player {
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
     fill(0);
     text(this.name, this.x, this.y);
-    text(this.score, this.x, this.y);
+    // text(this.score, this.x, this.y);
   }
 
   hit(box) {
