@@ -1,7 +1,10 @@
 var socket = io();
 let blob;
 let box;
+let multiColoredBox;
 let boxs = [];
+let fastBoxes = [];
+
 let boxsNum = 0;
 let again = true;
 let blobs = [];
@@ -11,75 +14,120 @@ let song;
 // function preload() {
 //   song = loadSound("start.mp3");
 // }
+var mu;
+
+function preload() {
+  // load images
+  mu = loadImage("multi-colored.jpg");
+  //song = loadSound("start.mp3");
+}
+// window.onload = function() {
+//   //   console.log("onload");
+//   swal("Hi", "choose username!", "error");
+// };
 function setup() {
-  song = createAudio("start.mp3");
+  //   song = createAudio("start.mp3");
   //   song.autoplay(true);
   //   song = createAudio("start.mp3");
   //   song.autoplay(true);
   createCanvas(window.innerWidth, window.innerHeight);
   // console.log(song);
-  //   song.play();
+  //song.play();
 
   frameRate(30);
   // Create an array of colors
-  colors = [
-    "blue",
-    "green",
-    "yellow"
-    // "gray",
-    // "orange",
-    // "pink",
-    // "red",
-    // "maroon",
-    // "purple",
-    // "lavender",
-    // "brown",
-    // "crimson",
-    // "hotpink",
-    // "salmon",
-    // "gold",
-    // "orchid"
-  ];
+  colors = ["blue", "green", "yellow"];
+  // "gray",
+  // "orange",
+  // "pink",
+  // "red",
+  // "maroon",
+  // "purple",
+  // "lavender",
+  // "brown",
+  // "crimson",
+  // "hotpink",
+  // "salmon",
+  // "gold",
+  // "orchid"
 
-  // box = new Box(500, 60, 80, 40, "blue");
-
+  //code to generate normal boxes
   for (let i = 0; i < random(1, 3); i++) {
     const boxWidth = lerp(80, 100, Math.random());
     // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
     boxs.push(
       new Box(
-        random(width - boxWidth), // x
+        random(width - boxWidth),
         random(height),
         boxWidth,
         50,
         colors[Math.round(random(0, colors.length - 1))]
-        // stroke(colors[int(random(0, colors.length))])
       )
-    );
+    ); // x
+    // stroke(colors[int(random(0, colors.length))])
   }
   setInterval(function() {
     const boxWidth = lerp(80, 100, Math.random());
     // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
     boxs.push(
       new Box(
-        random(width - boxWidth), // x
+        random(width - boxWidth),
         0,
         boxWidth,
         50,
         colors[Math.round(random(0, colors.length - 1))]
-        // stroke(colors[int(random(0, colors.length))])
       )
-    );
+    ); // x
+    // stroke(colors[int(random(0, colors.length))])
   }, 3000);
-}
-function mouseClicked() {
-  //here we test if the mouse is over the
-  //canvas element when it's clicked
-  if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
-    //Show our p5.MediaElement's src field
-    alert(song.src);
+  //code to generate fast boxes
+  for (let i = 0; i < random(15, 40); i++) {
+    const boxWidth = lerp(20, 30, Math.random());
+    // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
+    fastBoxes.push(
+      new Box(
+        random(width - boxWidth),
+        random(height),
+        boxWidth,
+        30,
+        colors[Math.round(random(0, colors.length - 1))]
+      )
+    ); // x
+    // stroke(colors[int(random(0, colors.length))])
   }
+
+  //fast mode
+  setInterval(function() {
+    fill("red");
+    text("here comes the fast mode", width / 2, height / 2);
+    for (let i = 0; i < random(15, 40); i++) {
+      const boxWidth = lerp(20, 30, Math.random());
+      fastBoxes.push(
+        new Box(
+          random(width - boxWidth),
+          random(height),
+          boxWidth,
+          30,
+          colors[Math.round(random(0, colors.length - 1))]
+        )
+      );
+    }
+  }, 10000);
+    multiColoredBox = new ColoredBox(random(width), random(height), 40, 40, mu); // x
+
 }
+// function mouseClicked() {
+//   //here we test if the mouse is over the
+//   //canvas element when it's clicked
+//   if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+//     //Show our p5.MediaElement's src field
+//     alert(song.src);
+//   }
+// }
+
+//code to generate multi color boxes
+
+
 let players = [];
 
 socket.on("join event", function(id) {
@@ -129,6 +177,10 @@ function draw() {
   boxs = boxs.filter(function(box) {
     return box.hasBeenHit === false;
   });
+
+  fastBoxes = fastBoxes.filter(function(box) {
+    return box.hasBeenHit === false;
+  });
   background(0);
   if (me) {
     me.show();
@@ -155,4 +207,25 @@ function draw() {
       me.hit(boxs[i]);
     }
   } //}
+  //boxes mode fast
+  for (let i = 0; i < fastBoxes.length; i++) {
+    fastBoxes[i].show();
+    fastBoxes[i].moveFast();
+    if (me) {
+      me.hit(fastBoxes[i]);
+    }
+  }
+  // for (let i = 0; i < multiColoredBox.length; i++) {
+  //   multiColoredBox[i].show();
+  //   multiColoredBox[i].moveFast();
+  //   if (me) {
+  //     me.collectMulti(multiColoredBox[i]);
+  //   }
+
+  // }
+  multiColoredBox.show();
+  multiColoredBox.appeare();
+
+  //multiColoredBox.show()
+  me.collectMulti(multiColoredBox);
 }
