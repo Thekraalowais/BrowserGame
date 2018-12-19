@@ -31,8 +31,8 @@ class Player {
     fill(this.color);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
     fill(0);
-    text(this.name, this.x, this.y);
-    text(this.score, this.x, this.y);
+    text(this.name, this.x - 15, this.y);
+    text(this.score, this.x - 3, this.y + 20);
   }
 
   hit(box) {
@@ -57,7 +57,7 @@ class Player {
     ) {
       box.hasBeenHit = true;
       this.score += 1;
-      console.log("win...score : " + this.score);
+      // console.log("win...score : " + this.score);
     } else if (
       playerX > boxX &&
       playerX < boxX + boxW &&
