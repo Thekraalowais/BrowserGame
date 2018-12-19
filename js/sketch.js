@@ -10,16 +10,12 @@ let again = true;
 let blobs = [];
 let me = null;
 let song;
-
-// function preload() {
-//   song = loadSound("start.mp3");
-// }
 var mu;
 
 function preload() {
   // load images
   mu = loadImage("multi-colored.jpg");
-  //song = loadSound("start.mp3");
+  // song = loadSound("fail.mp3");
 }
 // window.onload = function() {
 //   //   console.log("onload");
@@ -33,7 +29,7 @@ function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   // console.log(song);
   //song.play();
-
+  // background();
   frameRate(30);
   // Create an array of colors
   colors = ["blue", "green", "yellow"];
@@ -81,20 +77,6 @@ function setup() {
     // stroke(colors[int(random(0, colors.length))])
   }, 3000);
   //code to generate fast boxes
-  for (let i = 0; i < random(15, 40); i++) {
-    const boxWidth = lerp(20, 30, Math.random());
-    // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
-    fastBoxes.push(
-      new Box(
-        random(width - boxWidth),
-        random(height),
-        boxWidth,
-        30,
-        colors[Math.round(random(0, colors.length - 1))]
-      )
-    ); // x
-    // stroke(colors[int(random(0, colors.length))])
-  }
 
   //fast mode
   setInterval(function() {
@@ -115,14 +97,6 @@ function setup() {
   }, 10000);
   multiColoredBox = new ColoredBox(random(width), random(height), 40, 40, mu); // x
 }
-// function mouseClicked() {
-//   //here we test if the mouse is over the
-//   //canvas element when it's clicked
-//   if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
-//     //Show our p5.MediaElement's src field
-//     alert(song.src);
-//   }
-// }
 
 //code to generate multi color boxes
 
@@ -130,9 +104,17 @@ let players = [];
 
 socket.on("join event", function(id) {
   if (!me) {
-    me = new Player(prompt("Name"), 40, 40, 40, prompt("Color"), id, 0);
+    me = new Player(
+      prompt("Name", "guest"),
+      40,
+      40,
+      40,
+      prompt("color", "green"),
+      id,
+      0
+    );
   }
-  //   console.log("Joining", players);
+  console.log("Joining", players);
 });
 
 socket.on("leave event", function(id) {
@@ -179,7 +161,7 @@ function draw() {
   fastBoxes = fastBoxes.filter(function(box) {
     return box.hasBeenHit === false;
   });
-  background(0);
+  // background(0);
   if (me) {
     me.show();
     me.update();
@@ -225,5 +207,7 @@ function draw() {
   multiColoredBox.appeare();
 
   //multiColoredBox.show()
-  me.collectMulti(multiColoredBox);
+  if (me) {
+    me.collectMulti(multiColoredBox);
+  }
 }

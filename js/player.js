@@ -1,6 +1,5 @@
 let lastX = 0;
 let lastY = 0;
-// let score = 0;
 class Player {
   constructor(name, x, y, r, color, id) {
     this.name = name;
@@ -11,6 +10,7 @@ class Player {
     this.id = id;
     this.score = 0;
   }
+
   update() {
     // console.log("sokect : " + socket.id, "id:" + this.id);
     // if (socket.id === this.id) {
@@ -69,6 +69,8 @@ class Player {
       box.hasBeenHit = true;
       // console.log("lose case ** stop the game : $$ yor score " + score);
       // alert("LOSE");
+      // document.getElementById("#song").play();
+
       swal({
         title: "AWW!",
         text: "Your score   " + this.score,
