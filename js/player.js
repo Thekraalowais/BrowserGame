@@ -77,7 +77,7 @@ class Player {
 
       swal({
         title: "Oops..You Lost!",
-        // text: "Your score   " + this.score,
+        text: "Your score   " + this.score,
         icon: "warning",
         closeOnClickOutside: false,
         button: "play again!"

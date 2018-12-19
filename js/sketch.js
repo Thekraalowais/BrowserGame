@@ -133,22 +133,30 @@ let players = [];
 socket.on("join event", function(id) {
   var div = document.createElement("div");
   div.innerHTML = `
-    Name:
-    <input id="swal-input1" class="swal2-input">
-    Color:
-    <input id="swal-input2" class="swal2-input">
-  `;
+      Name:
+      <input id="swal-input1" class="swal2-input">
+
+      Color:
+      <select id="swal-input2">
+    <option value="1">blue</option>
+    <option value="2">yellow</option>
+    <option value="3">pink</option>
+    <option value="4">lavender</option>
+    <option value="5">purple</option>
+  </select>
+      `;
+  // <input id="swal-input2" class="swal2-input">
   if (!me) {
-  swal({
-    title: "Enter your color and name",
-    closeOnClickOutside: false,
-    content: div
-  }).then(function(data) {
-    var name = document.getElementById("swal-input1").value;
-    var color = document.getElementById("swal-input2").value;
-    me = new Player(name, 40, 40, 40, color, id, 0);
-  });
-  
+    swal({
+      title: "Enter your color and name",
+      closeOnClickOutside: false,
+      content: div
+    }).then(function(data) {
+      var name = document.getElementById("swal-input1").value;
+      var colorMain = document.getElementById("swal-input2");
+      var color = colorMain.options[colorMain.selectedIndex].text;
+      me = new Player(name, 40, 40, 40, color, id, 0);
+    });
   }
   // if (formValues) {
   //   Swal(json.stringify(formValues))
@@ -200,7 +208,7 @@ function draw() {
   fastBoxes = fastBoxes.filter(function(box) {
     return box.hasBeenHit === false;
   });
-  background(0);
+  background(255);
   // clear();
   if (me) {
     me.show();
