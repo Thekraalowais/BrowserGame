@@ -67,13 +67,17 @@ class Player {
       boxColor != this.color
     ) {
       box.hasBeenHit = true;
+      var audio = document.querySelector("#fail");
+      var song = document.querySelector("#song");
+      song.pause();
+      audio.play();
       // console.log("lose case ** stop the game : $$ yor score " + score);
       // alert("LOSE");
       // document.getElementById("#song").play();
 
       swal({
-        title: "AWW!",
-        text: "Your score   " + this.score,
+        title: "Oops..You Lost!",
+        // text: "Your score   " + this.score,
         icon: "warning",
         closeOnClickOutside: false,
         button: "play again!"
@@ -102,19 +106,18 @@ class Player {
     let playerX = this.x;
     let playerY = this.y;
     let playerR = this.r;
-    let multiColor = multi.color;
-    let playerColor = this.color;
+
     if (
       playerX > multiX &&
       playerX < multiX + multiW &&
       playerY > multiY &&
       playerY < multiY + multiH &&
       multi.hasBeenHit === false
-      //multiColor === this.color
     ) {
       multi.hasBeenHit = true;
       this.score += 1;
       console.log("win...score : " + this.score);
+      // song.play();
     }
   }
 }
