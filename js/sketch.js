@@ -71,9 +71,8 @@ let players = [];
 
 socket.on("join event", function(id) {
   if (!me) {
-    me = new Player("thekra", 40, 40, 40, prompt("Color"), id);
+    me = new Player(prompt("Name"), 40, 40, 40, prompt("Color"), id);
   }
-  //   socket.emit("playerslist", players);
   //   console.log("Joining", players);
 });
 
@@ -84,15 +83,12 @@ socket.on("leave event", function(id) {
   //   console.log("Leaving", id, players);
 });
 
-// document.addEventListener("click", function() {
-//   socket.emit("player move", "Hi");
-// });
-
 socket.on("player move", function(player) {
   //   console.log(player);
   let foundPlayer = false;
   for (let i = 0; i < players.length; i += 1) {
     const p = players[i];
+    // if the other players are inside the new player array, so we will update the other player position
     if (p.id === player.id) {
       foundPlayer = true;
       players[i].x = player.x;
@@ -100,18 +96,10 @@ socket.on("player move", function(player) {
     }
   }
   if (foundPlayer === false && player.id !== socket.id) {
+    //   if the new player array not contain other players push other plaer to the array
     players.push(player);
   }
-  //   console.log(" player : " + player.id, players);
-  //   player1 = players.filter(function(p) {
-  //     return p.id == player.id;
-  //   });
-  //   for (var i = 0; i < players.length; i++) {
-  //     // if (players[i].id !== player.id) {
-  //     console.log("PLAYER:" + player.id);
-  //     //   console.log(player[i]);
-  //     // }
-  //   }
+
   // Every time someone moves
   // Find the player in players with the ID of the player that moves
   // If you found a player with that ID
@@ -123,31 +111,11 @@ socket.on("player move", function(player) {
   //   text("thekra", player[0].x, player[0].y);
 });
 
-// socket.on("playersList", function(data) {
-//   //   console.log(data.length);
-
-//   for (var i = 0; i < data.length; i++) {
-//     blobs.push(
-//       new Player(
-//         data[i].name,
-//         data[i].x,
-//         data[i].y,
-//         data[i].r,
-//         data[i].color,
-//         data[i].id
-//       )
-//     );
-//   }
-// });
-// console.log("inner", blobs);
-// console.log("inner", blobs.length);
-
 function draw() {
-  //   boxs = boxs.filter(function(box) {
-  //     return box.hasBeenHit === false;
-  //   });
+  boxs = boxs.filter(function(box) {
+    return box.hasBeenHit === false;
+  });
   background(0);
-
   if (me) {
     me.show();
     me.update();
@@ -158,7 +126,7 @@ function draw() {
     fill(player.color);
     ellipse(player.x, player.y, player.r * 2, player.r * 2);
     fill(0);
-    text("thekra", player.x, player.y);
+    text(player.name, player.x, player.y);
   }
 
   box.show();

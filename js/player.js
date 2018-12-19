@@ -13,8 +13,8 @@ class Player {
   update() {
     // console.log("sokect : " + socket.id, "id:" + this.id);
     // if (socket.id === this.id) {
-    const newX = lerp(this.x, mouseX, 0.8);
-    const newY = lerp(this.y, mouseY, 0.8);
+    const newX = lerp(this.x, mouseX, 1);
+    const newY = lerp(this.y, mouseY, 1);
 
     if (
       Math.round(newX) !== Math.round(this.x) &&
@@ -30,7 +30,7 @@ class Player {
     fill(this.color);
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
     fill(0);
-    text("thekra", this.x, this.y);
+    text(this.name, this.x, this.y);
   }
 
   hit(box) {
