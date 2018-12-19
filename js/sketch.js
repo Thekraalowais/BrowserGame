@@ -158,9 +158,8 @@ function draw() {
     fill(player.color);
     ellipse(player.x, player.y, player.r * 2, player.r * 2);
     fill(0);
-    text(player.name, player.x, player.y);
-    fill(0);
-    text(player.score, player.x, player.y);
+    text(player.name, player.x - 13, player.y);
+    text(player.score, player.x - 3, player.y + 20);
   }
 
   // box.show();

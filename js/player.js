@@ -32,7 +32,6 @@ class Player {
     ellipse(this.x, this.y, this.r * 2, this.r * 2);
     fill(0);
     text(this.name, this.x - 15, this.y);
-    fill(0);
     text(this.score, this.x - 3, this.y + 20);
   }
 
