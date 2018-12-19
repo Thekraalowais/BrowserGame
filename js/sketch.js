@@ -113,8 +113,7 @@ function setup() {
       );
     }
   }, 10000);
-    multiColoredBox = new ColoredBox(random(width), random(height), 40, 40, mu); // x
-
+  multiColoredBox = new ColoredBox(random(width), random(height), 40, 40, mu); // x
 }
 // function mouseClicked() {
 //   //here we test if the mouse is over the
@@ -127,12 +126,11 @@ function setup() {
 
 //code to generate multi color boxes
 
-
 let players = [];
 
 socket.on("join event", function(id) {
   if (!me) {
-    me = new Player("thekra", 40, 40, 40, "red", id, 0);
+    me = new Player(prompt("Name"), 40, 40, 40, prompt("Color"), id, 0);
   }
   //   console.log("Joining", players);
 });

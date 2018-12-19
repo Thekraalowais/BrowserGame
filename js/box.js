@@ -14,7 +14,7 @@ class Box {
   move() {
     this.x = this.x + random(-1, 1);
     // Moving up at a constant speed
-    this.y = this.y + 1;
+    this.y = this.y + 2;
     // console.log(this.y);
     // Reset to the bottom
     // if (this.y < 0) {
@@ -29,7 +29,7 @@ class Box {
   show() {
     if (this.hasBeenHit === false) {
       fill(this.color);
-       noStroke();
+      noStroke();
       rect(this.x, this.y, this.w, this.h);
     }
     if (this.y > window.innerHeight) {
