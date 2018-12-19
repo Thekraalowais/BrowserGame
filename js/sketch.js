@@ -81,20 +81,6 @@ function setup() {
     // stroke(colors[int(random(0, colors.length))])
   }, 3000);
   //code to generate fast boxes
-  for (let i = 0; i < random(15, 40); i++) {
-    const boxWidth = lerp(20, 30, Math.random());
-    // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
-    fastBoxes.push(
-      new Box(
-        random(width - boxWidth),
-        random(height),
-        boxWidth,
-        30,
-        colors[Math.round(random(0, colors.length - 1))]
-      )
-    ); // x
-    // stroke(colors[int(random(0, colors.length))])
-  }
 
   //fast mode
   setInterval(function() {
@@ -113,8 +99,7 @@ function setup() {
       );
     }
   }, 10000);
-    multiColoredBox = new ColoredBox(random(width), random(height), 40, 40, mu); // x
-
+  multiColoredBox = new ColoredBox(random(width), random(height), 40, 40, mu); // x
 }
 // function mouseClicked() {
 //   //here we test if the mouse is over the
@@ -127,12 +112,11 @@ function setup() {
 
 //code to generate multi color boxes
 
-
 let players = [];
 
 socket.on("join event", function(id) {
   if (!me) {
-    me = new Player("thekra", 40, 40, 40, "red", id, 0);
+    me = new Player(prompt("Name"), 40, 40, 40, prompt("color"), id, 0);
   }
   //   console.log("Joining", players);
 });
@@ -212,7 +196,6 @@ function draw() {
     fastBoxes[i].show();
     fastBoxes[i].moveFast();
     if (me) {
-      me.hit(fastBoxes[i]);
     }
   }
   // for (let i = 0; i < multiColoredBox.length; i++) {
