@@ -71,15 +71,7 @@ let players = [];
 
 socket.on("join event", function(id) {
   if (!me) {
-    me = new Player(
-      prompt("Name"),
-      40,
-      40,
-      40,
-      prompt("Color"),
-      id,
-      this.score
-    ); ////////////////////////////////////////////////////////////////
+    me = new Player(prompt("Name"), 40, 40, 40, prompt("Color"), id);
   }
   //   socket.emit("playerslist", players);
   //   console.log("Joining", players);
@@ -167,7 +159,8 @@ function draw() {
     ellipse(player.x, player.y, player.r * 2, player.r * 2);
     fill(0);
     text(player.name, player.x, player.y);
-    text(player.score, player.x, player.y + 1);
+    fill(0);
+    text(player.score, player.x, player.y);
   }
 
   // box.show();
