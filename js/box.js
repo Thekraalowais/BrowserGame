@@ -21,7 +21,11 @@ class Box {
     //   this.y = height;
     // }
   }
-
+  moveFast() {
+    this.x = this.x + random(-1, 2);
+    // Moving up at a constant speed
+    this.y = this.y + 10;
+  }
   show() {
     if (this.hasBeenHit === false) {
       fill(this.color);

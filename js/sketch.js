@@ -2,6 +2,8 @@ var socket = io();
 let blob;
 let box;
 let boxs = [];
+let toros = [];
+
 let boxsNum = 0;
 let again = true;
 let blobs = [];
@@ -50,6 +52,12 @@ function setup() {
         // stroke(colors[int(random(0, colors.length))])
       )
     );
+  }
+  for (let i = 0; i < random(4, 20); i++) {
+    const boxWidth = lerp(10, 30, Math.random());
+    // Pick a random color out of the array of colors (Math.round(random(0, colors.length - 1));)
+    toros.push(new Box(random(width - boxWidth), random(height), boxWidth, 50, colors[Math.round(random(0, colors.length - 1))])); // x
+    // stroke(colors[int(random(0, colors.length))])
   }
   setInterval(function() {
     const boxWidth = lerp(80, 100, Math.random());
@@ -154,6 +162,10 @@ function draw() {
   boxs = boxs.filter(function(box) {
     return box.hasBeenHit === false;
   });
+
+  toros = toros.filter(function(box) {
+    return box.hasBeenHit === false;
+  });
   background(0);
 
   if (me) {
@@ -178,6 +190,13 @@ function draw() {
     // console.log("run");
     boxs[i].move();
     me.hit(boxs[i]);
+  } //}
+  for (let i = 0; i < toros.length; i++) {
+    toros[i].show();
+    // console.log("run");
+    toros[i].moveFast();
+    me.hit(toros[i]);
+    // blob.hit(boxs[i]);
   } //}
 }
 
