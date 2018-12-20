@@ -20,7 +20,7 @@ For making the actual game
 https://browsergame-wklqnfnxox.now.sh
 
 ## Credits :
-- thanks to our instructors Jack Jeffreess an Moath Althowad
+- thanks to our instructors Jack Jeffreess and Moath Althwad
 
 
 
