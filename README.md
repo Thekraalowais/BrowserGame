@@ -1,5 +1,5 @@
 # BrowserGame
-![alt text](https://i.ibb.co/bshWwRS/game-2.png)
+![alt text](https://i.imgur.com/QTmJNjG.png)
 ## Game play:
 
 
