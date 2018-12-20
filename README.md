@@ -17,8 +17,7 @@ For making the actual game
 - Canvas/HTML5
 
 ## Demo:
-https://7301e1c9.ngrok.io
-
+https://browsergame-wklqnfnxox.now.sh
 
 
 
