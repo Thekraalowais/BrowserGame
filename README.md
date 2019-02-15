@@ -19,8 +19,7 @@ For making the actual game
 ## Demo:
 https://browsergame-wklqnfnxox.now.sh
 
-## Credits :
-- thanks to our instructors Jack Jeffreess and Moath Althwad
+
 
 
 
